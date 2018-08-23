@@ -32,7 +32,7 @@ resource--所有静态文件（css，js，图片等）
 </table>
 
 
-####全局参数表 global_setting
+#### 全局参数表 global_setting
 
 <table>
 <th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
@@ -44,7 +44,7 @@ resource--所有静态文件（css，js，图片等）
 </table>
 
 
-####后台用户登录表 login_user
+#### 后台用户登录表 login_user
 
 | 字段名        | 类型  |  长度  | 备注 |
 | :--------:   | :-----:  | :--:  |
