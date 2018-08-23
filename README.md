@@ -1,39 +1,19 @@
 # 随手拍红包项目
-
-------
-
 ## 项目框架
-
-SpringBoot
-Thymeleaf
-MyBatis
-RabbitMQ
-Redis
-MySql
-
-------
-
+  SpringBoot          
+  Thymeleaf        
+  MyBatis       
+  RabbitMQ         
+  Redis       
+  MySql             
 ## 代码结构
-
-admin--后台管理（controller，service）
-mobile--前台（controller，service）
-database--数据库操作（dao,model,query,数据配置文件也在这里） 
-common--共用方法（工具类，公用配置等）
-operate-recorder--操作记录器
-prize-recorder--红包记录器和发送
-resource--所有静态文件（css，js，图片等）
-
-### 3. 高亮一段代码[^code]
-
-```python
-@requires_authorization
-class SomeClass:
-    pass
-
-if __name__ == '__main__':
-    # A comment
-    print 'hello world'
-```
+admin--后台管理（controller，service）     
+mobile--前台（controller，service）        
+database--数据库操作（dao,model,query,数据配置文件也在这里）         
+common--共用方法（工具类，公用配置等）          
+operate-recorder--操作记录器           
+prize-recorder--红包记录器和发送         
+resource--所有静态文件（css，js，图片等）            
 
 ## 数据库
 
