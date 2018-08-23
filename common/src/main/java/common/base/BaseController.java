@@ -28,8 +28,12 @@ public class BaseController {
     public String[] getParams(String name){
         return getRequest().getParameterValues(name);
     }
-    public Object getAttribute(String name){
-        return getRequest().getAttribute(name);
+    public <T> T  getAttribute(String name){
+        Object o=getRequest().getAttribute(name);
+        if(o!=null){
+            return (T)o;
+        }
+        return null;
     }
     public  void setAttribute(String name,Object value){
         getRequest().setAttribute(name, value);

@@ -1,0 +1,14 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /sspmobile
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+wechat:
+  app-id: wx1b395505a3b44607
+  app-secret: d4624c36b6795d1d99dcf0547af5443d
