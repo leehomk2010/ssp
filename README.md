@@ -14,6 +14,14 @@ common--共用方法（工具类，公用配置等）
 operate-recorder--操作记录器           
 prize-recorder--红包记录器和发送         
 resource--所有静态文件（css，js，图片等）            
+<table><th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
+<tr><td>fansId</td><td>int</td><td>11</td><td>粉丝ID(主键)</td></tr>
+<tr><td>openId</td><td>varchar</td><td>32</td><td>openId</td></tr>
+<tr><td>nickName</td><td>varchar</td><td>150</td><td>昵称</td></tr>
+<tr><td>realName</td><td>varchar</td><td>20</td><td>姓名</td></tr>
+<tr><td>mobile</td><td>varchar</td><td>15</td><td>联系方式</td></tr>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr></table>
+
 
 | 字段名        | 类型  |  长度  | 备注 |
 | :--------:   | :-----:  | :--:  |
