@@ -13,34 +13,36 @@ database--数据库操作（dao,model,query,数据配置文件也在这里）
 common--共用方法（工具类，公用配置等）          
 operate-recorder--操作记录器           
 prize-recorder--红包记录器和发送         
-resource--所有静态文件（css，js，图片等）            
-<table><th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
+resource--所有静态文件（css，js，图片等）
+
+## 数据库
+
+### 数据库设计
+
+#### 粉丝表 fans  
+
+<table>
+<th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
 <tr><td>fansId</td><td>int</td><td>11</td><td>粉丝ID(主键)</td></tr>
 <tr><td>openId</td><td>varchar</td><td>32</td><td>openId</td></tr>
 <tr><td>nickName</td><td>varchar</td><td>150</td><td>昵称</td></tr>
 <tr><td>realName</td><td>varchar</td><td>20</td><td>姓名</td></tr>
 <tr><td>mobile</td><td>varchar</td><td>15</td><td>联系方式</td></tr>
-<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr></table>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+</table>
 
-
-| 字段名        | 类型  |  长度  | 备注 |
-| :--------:   | :-----:  | :--:  |
-| fansId     | int |11|粉丝ID(主键)|
-| openId |varchar |32|openId|
-| nickName| varchar|150|昵称|
-| realName| varchar|20|姓名|
-| mobile| varchar|15|联系方式|
-| createTime| bigint|10|创建时间|
 
 ####全局参数表 global_setting
 
-| 字段名        | 类型  |  长度  | 备注 |
-| :--------:   | :-----:  | :--:  |
-| settingId     | int |11|(主键)|
-| dayLimit |int |11|每日奖励发放上限|
-| firstAmount| int|11|初始红包金额|
-| receiveType| int|11|领取方式（0，1，2分别对应产品文档的3种方式）|
-| updateTime| bigint|10|最后修改时间|
+<table>
+<th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
+<tr><td>settingId</td><td>int</td><td>11</td><td>主键</td></tr>
+<tr><td>dayLimit</td><td>int</td><td>11</td><td>每日奖励发放上限</td></tr>
+<tr><td>firstAmount</td><td>int</td><td>11</td><td>初始红包金额</td></tr>
+<tr><td>receiveType</td><td>int</td><td>11</td><td>领取方式（0，1，2分别对应产品文档的3种方式）</td></tr>
+<tr><td>updateTime</td><td>bigint</td><td>10</td><td>最后修改时间</td></tr>
+</table>
+
 
 ####后台用户登录表 login_user
 
