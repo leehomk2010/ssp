@@ -46,16 +46,63 @@ resource--所有静态文件（css，js，图片等）
 
 #### 后台用户登录表 login_user
 
-| 字段名        | 类型  |  长度  | 备注 |
-| :--------:   | :-----:  | :--:  |
-| userId     | int |11|用户ID(主键)|
-| userName |varchar |30|用户名|
-| realName| varchar|20|真实姓名|
-| mobile| varchar|15|联系方式|
-| roleType| int|1|角色类型(0 系统管理，1 一级管理员，2 二级管理员)|
-| psw| varchar|32|密码(32位md5)|
-| createTime| bigint|10|创建时间|
-| status| int|1|状态(0 禁用，1 启用)|
+<table>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
+<tr><td>userId</td><td>int</td><td>11</td><td>用户ID(主键)</td></tr>
+<tr><td>userName</td><td>varchar</td><td>30</td><td>用户名</td></tr>
+<tr><td>realName</td><td>varchar</td><td>20</td><td>真实姓名</td></tr>
+<tr><td>mobile</td><td>varchar</td><td>15</td><td>联系方式</td></tr>
+<tr><td>roleType</td><td>int</td><td>1</td><td>角色类型(0 系统管理，1 一级管理员，2 二级管理员)</td></tr>
+  <tr><td>psw</td><td>varchar</td><td>32</td><td>密码(32位md5)</td></tr>
+  <tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+  <tr><td>status</td><td>int</td><td>1</td><td>状态(0 禁用，1 启用)</td></tr>
+</table>
 
+#### 操作记录表 operate_record
 
+<table>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
+<tr><td>recordId</td><td>bigint</td><td>20</td><td>主键</td></tr>
+<tr><td>reportId</td><td>bigint</td><td>20</td><td>举报信息ID（外键）</td></tr>
+<tr><td>userId</td><td>int</td><td>11</td><td>登录用户ID（外键）</td></tr>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+<tr><td>desc</td><td>varchar</td><td>100</td><td>备注</td></tr>
+</table>
+
+#### 红包记录表 prize_record
+
+<table>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
+<tr><td>recordId</td><td>bigint</td><td>20</td><td>主键</td></tr>
+<tr><td>fansId</td><td>int</td><td>11</td><td>粉丝ID（外键）</td></tr>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+<tr><td>status</td><td>int</td><td>1</td><td>状态（-1 发送失败，0 待发送，1 发送成功，2 发送中）</td></tr>
+<tr><td>reportId</td><td>bigint</td><td>20</td><td>举报信息ID（外键）</td></tr>
+  <tr><td>type</td><td>int</td><td>1</td><td>类型（0 初次发放，1 追加发放）</td></tr>
+  <tr><td>amount</td><td>int</td><td>11</td><td>金额（单位分，×100=元）</td></tr>
+  <tr><td>errorInfo</td><td>varchar</td><td>100</td><td>失败原因</td></tr>
+  <tr><td>billno</td><td>varchar</td><td>28</td><td>红包订单号（腾讯方）</td></tr>
+</table>
+
+#### 举报信息表 report
+
+<table>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
+<tr><td>reportId</td><td>bigint</td><td>20</td><td>举报信息ID(主键)</td></tr>
+<tr><td>fansId</td><td>int</td><td>11</td><td>粉丝id（外键）</td></tr>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+<tr><td>happenTime</td><td>bigint</td><td>10</td><td>发生时间</td></tr>
+<tr><td>happenPlace</td><td>varchar</td><td>200</td><td>发生地点</td></tr>
+  <tr><td>eventDesc</td><td>varchar</td><td>1200</td><td>事件描述</td></tr>
+  <tr><td>descVoice</td><td>varchar</td><td>200</td><td>描述语音</td></tr>
+  <tr><td>descImages</td><td>varchar</td><td>500</td><td>佐证材料图片</td></tr>
+  <tr><td>descVideo</td><td>varchar</td><td>150</td><td>佐证材料视频</td></tr>
+  <tr><td>status</td><td>int</td><td>1</td><td>状态(0 禁用，1 启用)</td></tr>
+  <tr><td>reportType1</td><td>int</td><td>11</td><td>初次分类</td></tr>
+  <tr><td>reportType2</td><td>int</td><td>11</td><td>追加分类</td></tr>
+  <tr><td>prizeStatus1</td><td>int</td><td>1</td><td>初次发放状态（0 未发，1 已发）</td></tr>
+  <tr><td>prizeStatus2</td><td>int</td><td>1</td><td>追加发放状态（0 未发，1 已发）</td></tr>
+  <tr><td>remark</td><td>varchar</td><td>1200</td><td>备注</td></tr>
+  <tr><td>reply</td><td>varchar</td><td>1200</td><td>小编回复</td></tr>
+</table>
 
