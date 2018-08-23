@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>后台管理系统</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                        <li class="active">
+                            <a><i class="fa fa-users"></i> <span class="nav-label">举报信息</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="loginuser" target="main">创建分类</a></li>
+                                <li><a href="userrole" target="main">举报信息汇总</a></li>
+                                <li><a href="authority" target="main">待核实</a></li>
+                                <li><a href="usergroup" target="main">已核实，待处理</a></li>
+                                <li><a href="activitioncode/new" target="main">信息不准确</a></li>
+                                <li><a href="activitioncode/new" target="main">已处理</a></li>
+                            </ul>
+                        </li>
+                    <li>
+                        <a><i class="fa fa-users"></i> <span class="nav-label">信息显示与管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="loginuser" target="main">待初审</a></li>
+                            <li><a href="userrole" target="main">初审通过</a></li>
+                            <li><a href="authority" target="main">初审未通过</a></li>
+                            <li><a href="usergroup" target="main">待分类</a></li>
+                            <li><a href="activitioncode/new" target="main">信息不准确</a></li>
+                            <li><a href="activitioncode/new" target="main">待整改</a></li>
+                            <li><a href="activitioncode/new" target="main">已整改</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-users"></i> <span class="nav-label">信息显示与管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="loginuser" target="main">设置奖励</a></li>
+                            <li><a href="userrole" target="main">信息汇总</a></li>
+                            <li><a href="authority" target="main">待复审</a></li>
+                            <li><a href="usergroup" target="main">待核实</a></li>
+                            <li><a href="activitioncode/new" target="main">信息不准确</a></li>
+                            <li><a href="activitioncode/new" target="main">待整改</a></li>
+                            <li><a href="activitioncode/new" target="main">已整改</a></li>
+                        </ul>
+                    </li>
+                        <li>
+                            <a href="act"><i class="fa fa-shopping-cart"></i> <span class="nav-label">分账号管理</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="loginuser" target="main">一级管理员账号</a></li>
+                                <li><a href="loginuser" target="main">二级管理员账号</a></li>
+                                <li><a href="loginuser/new" target="main">创建账号</a></li>
+                            </ul>
+                        </li>
+                    <li>
+                        <a href="act"><i class="fa fa-shopping-cart"></i> <span class="nav-label">奖励发放</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="act" target="main">初始发放记录</a></li>
+                            <li><a href="actorder" target="main">追加发放记录</a></li>
+                            <li><a href="actcomment" target="main">初始奖励发放设置</a></li>
+                            <li><a href="actcomment" target="main">追加奖励发放标准</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="act"><i class="fa fa-shopping-cart"></i> <span class="nav-label">信息员管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="act" target="main">信息员统计</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="act"><i class="fa fa-shopping-cart"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="act" target="main">用户分析</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary "><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">欢迎</span>
+                        </li>
+                        <li>
+                            <a href="logout">
+                                <i class="fa fa-sign-out"></i> 退出
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="row">
+                <iframe width="100%" frameborder="0" style="min-width:800px; overflow:auto;margin:0px;padding:0px;" name="main" id="main"></iframe>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $("#main").height($(window).height()-79);
+            $(window).resize(function(){
+                $("#main").height($(window).height()-79);
+            });}
+        )
+    </script>
+</th:block>
+</body>
+</html>
