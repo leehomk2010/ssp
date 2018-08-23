@@ -5,14 +5,15 @@
   MyBatis       
   RabbitMQ         
   Redis       
-  MySql             
+  MySql  
+  
 ## 代码结构
 admin--后台管理（controller，service）     
 mobile--前台（controller，service）        
 database--数据库操作（dao,model,query,数据配置文件也在这里）         
 common--共用方法（工具类，公用配置等，urlPrefix配置在这里）          
-operate-recorder--操作记录器           
-prize-recorder--红包记录器和发送         
+operate-recorder--操作记录器（通过MQ与前后台关联）           
+prize-recorder--红包记录器和发送（通过MQ与前后台关联）         
 resource--所有静态文件（css，js，图片等）
 
 ## 数据库
