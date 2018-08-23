@@ -97,7 +97,7 @@ resource--所有静态文件（css，js，图片等）
   <tr><td>descVoice</td><td>varchar</td><td>200</td><td>描述语音</td></tr>
   <tr><td>descImages</td><td>varchar</td><td>500</td><td>佐证材料图片</td></tr>
   <tr><td>descVideo</td><td>varchar</td><td>150</td><td>佐证材料视频</td></tr>
-  <tr><td>status</td><td>int</td><td>1</td><td>状态(0 禁用，1 启用)</td></tr>
+  <tr><td>status</td><td>int</td><td>1</td><td>状态(参考产品文档)</td></tr>
   <tr><td>reportType1</td><td>int</td><td>11</td><td>初次分类</td></tr>
   <tr><td>reportType2</td><td>int</td><td>11</td><td>追加分类</td></tr>
   <tr><td>prizeStatus1</td><td>int</td><td>1</td><td>初次发放状态（0 未发，1 已发）</td></tr>
@@ -106,3 +106,13 @@ resource--所有静态文件（css，js，图片等）
   <tr><td>reply</td><td>varchar</td><td>1200</td><td>小编回复</td></tr>
 </table>
 
+#### 分类表 report_type
+
+<table>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
+<tr><td>typeId</td><td>int</td><td>11</td><td>主键</td></tr>
+<tr><td>typeName</td><td>varchar</td><td>200</td><td>分类名称</td></tr>
+<tr><td>typeDesc</td><td>varchar</td><td>2000</td><td>分类描述</td></tr>
+<tr><td>amount</td><td>int</td><td>11</td><td>奖励金额</td></tr>
+<tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
+</table>
