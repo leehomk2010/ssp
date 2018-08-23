@@ -15,8 +15,6 @@ operate-recorder--操作记录器
 prize-recorder--红包记录器和发送         
 resource--所有静态文件（css，js，图片等）            
 
-## 数据库
-
 | 字段名        | 类型  |  长度  | 备注 |
 | :--------:   | :-----:  | :--:  |
 | fansId     | int |11|粉丝ID(主键)|
