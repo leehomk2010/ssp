@@ -22,7 +22,7 @@ resource--所有静态文件（css，js，图片等）
 #### 粉丝表 fans  
 
 <table>
-<th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
 <tr><td>fansId</td><td>int</td><td>11</td><td>粉丝ID(主键)</td></tr>
 <tr><td>openId</td><td>varchar</td><td>32</td><td>openId</td></tr>
 <tr><td>nickName</td><td>varchar</td><td>150</td><td>昵称</td></tr>
@@ -35,7 +35,7 @@ resource--所有静态文件（css，js，图片等）
 #### 全局参数表 global_setting
 
 <table>
-<th><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></th>
+<tr><td>字段名</td><td>类型</td><td>长度</td><td>备注</td></tr>
 <tr><td>settingId</td><td>int</td><td>11</td><td>主键</td></tr>
 <tr><td>dayLimit</td><td>int</td><td>11</td><td>每日奖励发放上限</td></tr>
 <tr><td>firstAmount</td><td>int</td><td>11</td><td>初始红包金额</td></tr>
