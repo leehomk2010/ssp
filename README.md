@@ -5,14 +5,15 @@
   MyBatis       
   RabbitMQ         
   Redis       
-  MySql             
+  MySql  
+  
 ## 代码结构
 admin--后台管理（controller，service）     
 mobile--前台（controller，service）        
 database--数据库操作（dao,model,query,数据配置文件也在这里）         
-common--共用方法（工具类，公用配置等）          
-operate-recorder--操作记录器           
-prize-recorder--红包记录器和发送         
+common--共用方法（工具类，公用配置等，urlPrefix配置在这里）          
+operate-recorder--操作记录器（通过MQ与前后台关联）           
+prize-recorder--红包记录器和发送（通过MQ与前后台关联）         
 resource--所有静态文件（css，js，图片等）
 
 ## 数据库
@@ -116,3 +117,178 @@ resource--所有静态文件（css，js，图片等）
 <tr><td>amount</td><td>int</td><td>11</td><td>奖励金额</td></tr>
 <tr><td>createTime</td><td>bigint</td><td>10</td><td>创建时间</td></tr>
 </table>
+
+### 建表代码
+```sql
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : local
+Source Server Version : 50639
+Source Host           : localhost:3306
+Source Database       : ssp
+
+Target Server Type    : MYSQL
+Target Server Version : 50639
+File Encoding         : 65001
+
+Date: 2018-08-23 12:08:00
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `fans`
+-- ----------------------------
+DROP TABLE IF EXISTS `fans`;
+CREATE TABLE `fans` (
+  `fansId` int(11) NOT NULL AUTO_INCREMENT COMMENT '粉丝ID',
+  `openId` varchar(32) NOT NULL COMMENT 'openId',
+  `nickName` varchar(150) DEFAULT NULL COMMENT '昵称',
+  `realName` varchar(20) NOT NULL COMMENT '姓名',
+  `mobile` varchar(15) NOT NULL COMMENT '联系方式',
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`fansId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of fans
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `global_setting`
+-- ----------------------------
+DROP TABLE IF EXISTS `global_setting`;
+CREATE TABLE `global_setting` (
+  `settingId` int(11) NOT NULL AUTO_INCREMENT,
+  `dayLimit` int(11) NOT NULL COMMENT '每日奖励发放上限',
+  `firstAmount` int(11) NOT NULL COMMENT '初始红包金额',
+  `receiveType` int(11) NOT NULL COMMENT '领取方式',
+  `updateTime` bigint(10) DEFAULT NULL COMMENT '最后修改时间',
+  PRIMARY KEY (`settingId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of global_setting
+-- ----------------------------
+INSERT INTO `global_setting` VALUES ('1', '3', '100', '0', null);
+
+-- ----------------------------
+-- Table structure for `login_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `login_user`;
+CREATE TABLE `login_user` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `userName` varchar(30) NOT NULL COMMENT '用户名',
+  `realName` varchar(20) NOT NULL COMMENT '真实姓名',
+  `mobile` varchar(15) NOT NULL COMMENT '联系方式',
+  `roleType` int(1) NOT NULL COMMENT '角色类型',
+  `psw` varchar(32) NOT NULL COMMENT '密码',
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  `status` int(1) NOT NULL COMMENT '状态',
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of login_user
+-- ----------------------------
+INSERT INTO `login_user` VALUES ('1', 'test11', '测试1', '15967126316', '2', 'asasdasdasd', '1514736000', '1');
+
+-- ----------------------------
+-- Table structure for `operate_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `operate_record`;
+CREATE TABLE `operate_record` (
+  `recordId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reportId` bigint(20) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  `desc` varchar(100) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`recordId`),
+  KEY `reportId` (`reportId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `operate_record_ibfk_1` FOREIGN KEY (`reportId`) REFERENCES `report` (`reportId`),
+  CONSTRAINT `operate_record_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `login_user` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of operate_record
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `prize_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `prize_record`;
+CREATE TABLE `prize_record` (
+  `recordId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `fansId` int(11) NOT NULL COMMENT '粉丝id',
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  `status` int(1) NOT NULL COMMENT '状态',
+  `reportId` bigint(20) NOT NULL COMMENT '举报信息id（外键）',
+  `type` int(1) NOT NULL COMMENT '类型（初次还是追加）',
+  `amount` int(11) NOT NULL COMMENT '金额',
+  `errorInfo` varchar(100) DEFAULT NULL COMMENT '错误信息',
+  `billno` varchar(28) NOT NULL COMMENT '红包订单号',
+  PRIMARY KEY (`recordId`),
+  KEY `reportId` (`reportId`),
+  KEY `prize_record_ibfk_1` (`fansId`),
+  CONSTRAINT `prize_record_ibfk_1` FOREIGN KEY (`fansId`) REFERENCES `fans` (`fansId`),
+  CONSTRAINT `prize_record_ibfk_2` FOREIGN KEY (`reportId`) REFERENCES `report` (`reportId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of prize_record
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `report`
+-- ----------------------------
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report` (
+  `reportId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '举报id',
+  `fansId` int(11) NOT NULL COMMENT '粉丝id（外键）',
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  `happenTime` bigint(10) NOT NULL COMMENT '发生时间',
+  `happenPlace` varchar(200) NOT NULL COMMENT '发生地点',
+  `eventDesc` varchar(1200) DEFAULT NULL COMMENT '事件描述',
+  `descVoice` varchar(200) DEFAULT NULL COMMENT '描述语音',
+  `descImages` varchar(500) DEFAULT NULL COMMENT '佐证材料图片',
+  `descVideo` varchar(150) DEFAULT NULL COMMENT '佐证材料视频',
+  `status` int(2) NOT NULL COMMENT '状态',
+  `reportType1` int(11) DEFAULT NULL COMMENT '分类1',
+  `reportType2` int(11) DEFAULT NULL COMMENT '分类2',
+  `prizeStatus1` int(1) NOT NULL COMMENT '初次奖励状态',
+  `prizeStatus2` int(1) NOT NULL COMMENT '追加奖励状态',
+  `remark` varchar(1200) DEFAULT NULL COMMENT '备注',
+  `reply` varchar(1200) DEFAULT NULL COMMENT '小编回复',
+  PRIMARY KEY (`reportId`),
+  KEY `report_ibfk_1` (`fansId`),
+  KEY `report_ibfk_2` (`reportType1`),
+  KEY `report_ibfk_3` (`reportType2`),
+  CONSTRAINT `report_ibfk_1` FOREIGN KEY (`fansId`) REFERENCES `fans` (`fansId`) ON DELETE NO ACTION,
+  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`reportType1`) REFERENCES `report_type` (`typeId`) ON DELETE SET NULL,
+  CONSTRAINT `report_ibfk_3` FOREIGN KEY (`reportType2`) REFERENCES `report_type` (`typeId`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of report
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `report_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `report_type`;
+CREATE TABLE `report_type` (
+  `typeId` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `typeName` varchar(200) NOT NULL COMMENT '分类名称',
+  `typeDesc` varchar(2000) DEFAULT NULL COMMENT '分类描述',
+  `amount` int(11) NOT NULL COMMENT '奖励金额',
+  `createTime` bigint(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`typeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of report_type
+-- ----------------------------
+
+```
